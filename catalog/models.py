@@ -1,5 +1,5 @@
 from django.db import models
-from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your models here.
 class Genre(models.Model):
