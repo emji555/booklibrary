@@ -35,15 +35,14 @@ class Book(models.Model):
     @property
     def summary2(self):
         original_summary = self.summary
-        summary = ''
         keyword_models = Genre.objects.all()
         for keyword_model in keyword_models:
-            if original_summary.find(keyword_model.name) > 0:
-                keyword = keyword_model.name
-                summary = summary + ', ' + keyword
-                return '<a href="#">{0}</a>'.format(keyword)
+            keyword = keyword_model.name
+            if original_summary.find(keyword) > -1:
+                url = "/catalog/genre/{0}".format(keyword_model.id)
+                return '<a href="{0}">{1}</a>'.format(url, keyword)
         
-        return summary
+        return original_summary
 
     def __str__(self):
        """String for representing the Model object."""
