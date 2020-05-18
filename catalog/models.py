@@ -35,14 +35,25 @@ class Book(models.Model):
     @property
     def summary2(self):
         summary = self.summary
-        keyword_models = Genre.objects.all()
         replacements = []
+
+        keyword_models = Genre.objects.all()
         for keyword_model in keyword_models:
             keyword = keyword_model.name
             if summary.find(keyword) > -1:
                 url = "/catalog/genre/{0}".format(keyword_model.id)
                 a = '<a href="{0}">{1}</a>'.format(url, keyword)
                 replacements.append((keyword, a))
+
+        keyword_models = Book.objects.all()
+        for keyword_model in keyword_models:
+            keyword = keyword_model.title
+            if summary.find(keyword) > -1:
+                url = "/catalog/book/{0}".format(keyword_model.id)
+                a = '<a href="{0}">{1}</a>'.format(url, keyword)
+                replacements.append((keyword, a))
+
+
         for keyword, a in replacements:
             summary = summary.replace(keyword, a)
         return summary
